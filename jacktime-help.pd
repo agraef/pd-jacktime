@@ -1,0 +1,43 @@
+#N canvas 224 380 730 347.062 10;
+#X obj 22 33 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X floatatom 22 106 10 0 0 0 - - -, f 10;
+#X floatatom 166 137 5 0 0 0 - - -, f 5;
+#X floatatom 203 137 5 0 0 0 - - -, f 5;
+#X floatatom 240 137 5 0 0 0 - - -, f 5;
+#X symbolatom 94 106 10 0 0 0 - - -, f 10;
+#X obj 22 53 jacktime;
+#X floatatom 314 137 5 0 0 0 - - -, f 5;
+#X floatatom 351 137 5 0 0 0 - - -, f 5;
+#X text 203 155 beats;
+#X floatatom 388 137 5 0 0 0 - - -, f 5;
+#X floatatom 425 137 5 0 0 0 - - -, f 5;
+#X text 166 155 bars;
+#X text 240 155 ticks;
+#X text 325 155 meter;
+#X text 388 155 ppq;
+#X text 425 155 bpm;
+#X obj 166 106 unpack f f f f f f f;
+#X obj 50 33 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 78 33 start;
+#X msg 125 33 stop;
+#X text 8 126 current frame;
+#X text 100 125 status;
+#X text 177 86 BBT \, if available;
+#X text 35 13 bang \, start or nonzero starts reporting \, stop or
+0 stops it;
+#X connect 0 0 6 0;
+#X connect 6 0 1 0;
+#X connect 6 1 5 0;
+#X connect 6 2 17 0;
+#X connect 17 0 2 0;
+#X connect 17 1 3 0;
+#X connect 17 2 4 0;
+#X connect 17 3 7 0;
+#X connect 17 4 8 0;
+#X connect 17 5 10 0;
+#X connect 17 6 11 0;
+#X connect 18 0 6 0;
+#X connect 19 0 6 0;
+#X connect 20 0 6 0;
