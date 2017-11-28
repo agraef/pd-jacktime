@@ -1,4 +1,4 @@
-#N canvas 304 329 649 422 12;
+#N canvas 307 358 649 422 12;
 #X obj 27 166 timebase;
 #X msg 27 45 4 4;
 #X msg 124 45 9 8;
@@ -35,7 +35,7 @@
 #X msg 156 294 \$1 10;
 #X obj 155 53 / 4;
 #X obj 233 195 hsl 64 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 1400 1;
+-1 -1 0 1;
 #X obj 256 240 sel 0;
 #X msg 288 266 \; pd dsp 1;
 #X obj 156 267 *;
@@ -47,7 +47,7 @@
 #X obj 370 144 - 16;
 #X text 39 394 If you have a GM-compatible synth with a drumkit \,
 hook it up to Pd's first MIDI output.;
-#X obj 312 195 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 312 195 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 47 37 t f f;
 #X obj 370 307 spigot;
@@ -113,11 +113,11 @@ hook it up to Pd's first MIDI output.;
 #X text 24 3 timebase is a little helper abstraction which generates
 rhythmic pulses and optionally syncs to a Jack time source;
 #X text 36 316 NOTE: beats can be fractional if div>1;
-#X text 147 358 example: metronome clicks: turn up volume to enable
-\, or click toggle to add MIDI output on channel 10 GM (drumkit);
 #X text 231 168 red jack toggle activates external time sync \; green
 toggle switches to internal timer (metro) \; div denotes subdivions
 of the base pulse;
+#X text 147 358 example: metronome clicks: turn up volume to enable
+\, or click toggle to add MIDI output on channel 10 (GM drumkit);
 #X connect 0 0 9 0;
 #X connect 0 1 10 0;
 #X connect 0 2 12 0;
