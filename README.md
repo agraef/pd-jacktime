@@ -31,16 +31,16 @@ Also included is a little GOP abstraction timebase.pd which can either produce
 an internal clock pulse using metro, or sync to an external time source using
 Jack. In either case it generates on its leftmost outlet a sequence of pulse
 numbers counting from 0 to num-1, where `num` is the numerator of the current
-metre. The tempo is determined by the `bpm` value which as usual specifies the
-number of quarter pulses per minute, and the `unit` (denominator) of the metre
+meter. The tempo is determined by the `bpm` value which as usual specifies the
+number of quarter pulses per minute, and the `unit` (denominator) of the meter
 (the latter customarily is a power of 2, but you can specify any positive
 integer there).
 
 It is also possible to generate fractional pulses (subdivisions of the base
-pulse) by setting the `div` parameter to a value > 1. You can change the metre
+pulse) by setting the `div` parameter to a value > 1. You can change the meter
 and the tempo at any time using the provided controls, or you can feed a
 message of the form `num unit` or `num unit div` to the leftmost inlet of the
-abstraction, and set a `bpm` value on the second inlet. The defaults are metre
+abstraction, and set a `bpm` value on the second inlet. The defaults are meter
 = 4 4 1 (common time without subdivisions) and bpm = 120. You can also switch
 between Jack sync and internal time at any time, either with the red and green
 toggles of the abstraction or by sending a corresponding message to the third
@@ -54,17 +54,17 @@ transport client.) Click the green toggle in the timebase abstraction and turn
 up the volume in the click subpatch to listen to the metronome click. (You can
 also click on the toggle in the click subpatch to enable MIDI output, if you
 have a GM-compatible synthesizer like fluidsynth hooked up to Pd's MIDI
-output.) Try changing the metre by clicking on one of the sample messages at
+output.) Try changing the meter by clicking on one of the sample messages at
 the top of the patch.
 
 If all is well, you should hear the metronome clicks as determined by the
-current metre and bpm settings. Now try engaging Jack sync by clicking on the
+current meter and bpm settings. Now try engaging Jack sync by clicking on the
 red toggle in the abstraction. Then launch your favorite Jack sequencer
 application, such as Ardour or Hydrogen. Configure it as a Jack time master
 and press Play. Jack transport should be rolling now and the metronome clicks
 produced by Pd should be exactly in sync with the Jack application.
 
-Note that once the timebase abstraction has been switched to Jack, metre and
+Note that once the timebase abstraction has been switched to Jack, meter and
 tempo are determined solely by the Jack time master and pulses will be
 produced only when the transport is rolling. (However, you can still set any
 desired subdivisions using the `div` value, which isn't controlled by Jack.)
