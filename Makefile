@@ -1,7 +1,7 @@
 
 prefix = /usr
 installdir = $(prefix)/lib/pd-externals/jacktime
-installfiles = COPYING README.md Makefile jacktime.pd_lua jacktime-help.pd jtime.c jtime.so
+installfiles = COPYING README.md Makefile jacktime.pd_lua jacktime-help.pd jtime.c jtime.so timebase.pd timebase-help.pd
 
 all: jtime.so
 
