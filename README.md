@@ -1,10 +1,10 @@
 # pd-jacktime
 
-This external provides a basic interface to
-the [Jack transport client API][1]. The `jacktime` object observes and
-reports the current frame, status (stopped/rolling) and, if available, BBT
-(bars-beats-ticks, as well as meter, ppq, bpm) information. This information
-can then be used to synchronize Pd with a Jack transport master like Ardour.
+This external provides a basic interface to the [Jack transport][1] client
+API. The `jacktime` object observes and reports the current frame, status
+(stopped/rolling) and, if available, BBT (bars-beats-ticks, as well as meter,
+ppq, bpm) data. This information can then be used to synchronize Pd with a
+Jack transport master like Ardour.
 
 [1]: http://jackaudio.org/files/docs/html/transport-design.html
 
@@ -12,15 +12,14 @@ can then be used to synchronize Pd with a Jack transport master like Ardour.
 
 The external is written in Lua, so pd-lua is required. Lua 5.3 has been
 tested, earlier Lua versions might require some fiddling with the Lua source
-in jacktime.pd_lua and/or the C part of the module in jtime.c. Lua as well as
-pd-lua can be found in many Linux distributions and on MacPorts. A version of
-pd-lua compatible with Lua 5.3 is available
-from <https://github.com/agraef/pd-lua>.
+in jacktime.pd_lua and/or the C part of the module in jtime.c. Lua can be
+found in many Linux distributions and on MacPorts. A version of pd-lua
+compatible with Lua 5.3 is available from <https://github.com/agraef/pd-lua>.
 
-Run `make` to compile the C part of the external (Lua module jtime.c) and then
-`make install` to install the external under /usr/lib/pd-externals. Finally,
-put the /usr/lib/pd-externals/jacktime folder on your Pd library path and you
-should be set.
+Run `make` to compile the Lua module jtime.c and then `make install` to
+install the external under /usr/lib/pd-externals. Finally, put the
+/usr/lib/pd-externals/jacktime folder on your Pd library path and you should
+be set.
 
 ## Usage
 
@@ -44,8 +43,15 @@ abstraction, and set a `bpm` value on the second inlet. The defaults are meter
 = 4 4 1 (common time without subdivisions) and bpm = 120. You can also switch
 between Jack sync and internal time at any time, either with the red and green
 toggles of the abstraction or by sending a corresponding message to the third
-inlet. Please check the timebase-help.pd patch for an example which produces
-metronome clicks for illustration purposes.
+inlet.
+
+In addition, the third inlet also accepts any other message which is simply
+forwarded to the embedded `jacktime` object, like the Jack transport messages
+`start`, `stop` and `locate pos`. (The transport messages also work if
+transport information reporting is off. Please check the jacktime-help.pd
+patch for more information on these.) Please also check the timebase-help.pd
+patch for an example which produces metronome clicks for illustration
+purposes.
 
 Once pd-jacktime is installed, to give it a go launch Jack and open the
 timebase-help.pd patch. (Note that it doesn't matter whether Pd itself is
@@ -72,15 +78,16 @@ desired subdivisions using the `div` value, which isn't controlled by Jack.)
 If all works well, congrats! You can now start building your own Jack time
 clients in Pd, e.g., starting from the the timebase-help.pd patch.
 
-If you're getting sound from timebase-help.pd, but Jack sync (the red toggle)
-doesn't appear to work, double-check to make sure that your Jack sequencer
-application is really configured as a Jack time master. If you're not getting
-any sound from timebase-help.pd even when using the internal clock (green
-toggle), but the pulses seem to be "rolling" on the first outlet of the time
-abstraction, please double-check that Pd is actually hooked up to the right
-sound device (employing Pd's "Test Audio and Midi" patch) and that the volume
-in the click subpatch and your speakers is turned up. (Yeah, I know, you're an
-audio expert, it's such a basic thing, who'd make such a silly mistake!
+Here are some things you can try if things are not working well. If you're
+getting sound from timebase-help.pd, but Jack sync (the red toggle) doesn't
+appear to work, double-check to make sure that your Jack sequencer application
+is really configured as a Jack time master. If you're not getting any sound
+from timebase-help.pd even when using the internal clock (green toggle), but
+the pulses seem to be "rolling" on the first outlet of the time abstraction,
+please double-check that Pd is actually hooked up to the right sound device
+(employing Pd's "Test Audio and Midi" patch) and that the volume in the click
+subpatch and your speakers is turned up. (Yeah, I know, you're an audio
+expert, it's such a basic thing, who'd make such a silly mistake!
 Nevertheless it happens all the time.)
 
 ## Reporting Bugs etc.

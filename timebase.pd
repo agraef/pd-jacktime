@@ -1,4 +1,4 @@
-#N canvas 596 172 794 646.062 10;
+#N canvas 530 170 855 646.062 10;
 #X floatatom 16 98 5 0 0 2 num #0-num -, f 5;
 #X floatatom 53 98 5 0 0 2 unit #0-unit -, f 5;
 #X floatatom 90 98 5 0 0 2 div #0-div -, f 5;
@@ -95,6 +95,8 @@
 #X obj 356 209 t f f;
 #X obj 323 275 +;
 #X obj 378 187 - 1;
+#X obj 523 294 s \$0-jtime;
+#X obj 202 5 r \$0-jtime;
 #X connect 0 0 22 0;
 #X connect 0 0 80 0;
 #X connect 1 0 7 0;
@@ -165,7 +167,7 @@
 #X connect 59 0 81 0;
 #X connect 60 0 61 0;
 #X connect 60 1 62 0;
-#X connect 60 2 61 0;
+#X connect 60 2 92 0;
 #X connect 63 0 25 0;
 #X connect 63 1 64 0;
 #X connect 64 0 65 0;
@@ -190,4 +192,5 @@
 #X connect 89 1 88 1;
 #X connect 90 0 58 0;
 #X connect 91 0 90 1;
+#X connect 93 0 49 0;
 #X coords 0 -1 1 1 183 54 1 10 64;

@@ -1,19 +1,16 @@
-#N canvas 307 358 649 422 12;
+#N canvas 310 387 649 422 12;
 #X obj 27 166 timebase;
 #X msg 27 45 4 4;
 #X msg 124 45 9 8;
 #X floatatom 115 94 5 0 0 0 - bpm -, f 5;
 #X text 161 94 2nd inlet: tempo (bpm);
-#X text 166 45 1st inlet: metre (optionally with subdivision);
-#X msg 203 118 jack 1;
-#X msg 203 142 int 1;
-#X text 267 132 3rd inlet: jack/internal timebase toggles;
-#X floatatom 27 235 5 0 0 0 - - -, f 5;
-#X floatatom 115 262 5 0 0 0 - - -, f 5;
-#X text 164 261 2nd outlet: numerator of metre (total #pulses);
-#X floatatom 203 291 5 0 0 0 - - -, f 5;
+#X msg 253 118 jack 1;
+#X msg 253 142 int 1;
+#X floatatom 27 237 5 0 0 0 - - -, f 5;
+#X floatatom 115 264 5 0 0 0 - - -, f 5;
+#X floatatom 203 293 5 0 0 0 - - -, f 5;
 #X msg 27 71 4 4 2;
-#X text 250 290 3rd outlet: note durations (metro pulse time);
+#X text 250 292 3rd outlet: note durations (metro pulse time);
 #X msg 27 96 4 4 3;
 #X msg 77 45 3 4;
 #X msg 77 71 3 4 3;
@@ -35,7 +32,7 @@
 #X msg 156 294 \$1 10;
 #X obj 155 53 / 4;
 #X obj 233 195 hsl 64 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
+-1 -1 2700 1;
 #X obj 256 240 sel 0;
 #X msg 288 266 \; pd dsp 1;
 #X obj 156 267 *;
@@ -109,27 +106,37 @@ hook it up to Pd's first MIDI output.;
 #X restore 27 356 pd clicks;
 #X obj 533 17 loadbang;
 #X msg 533 42 \; bpm 120;
-#X text 76 236 1st outlet: beats (pulses counted from 0 to num-1);
+#X text 76 238 1st outlet: beats (pulses counted from 0 to num-1);
 #X text 24 3 timebase is a little helper abstraction which generates
 rhythmic pulses and optionally syncs to a Jack time source;
-#X text 36 316 NOTE: beats can be fractional if div>1;
-#X text 231 168 red jack toggle activates external time sync \; green
+#X text 36 314 NOTE: beats can be fractional if div>1;
+#X text 216 168 red jack toggle activates external time sync \; green
 toggle switches to internal timer (metro) \; div denotes subdivions
 of the base pulse;
 #X text 147 358 example: metronome clicks: turn up volume to enable
 \, or click toggle to add MIDI output on channel 10 (GM drumkit);
-#X connect 0 0 9 0;
-#X connect 0 1 10 0;
-#X connect 0 2 12 0;
+#X msg 203 119 start;
+#X msg 203 142 stop;
+#X msg 127 128 locate 0;
+#X text 315 120 3rd inlet: jack/internal timebase toggles \; transport
+controls;
+#X text 166 45 1st inlet: meter (optionally with subdivision);
+#X text 164 263 2nd outlet: numerator of meter (total #pulses);
+#X connect 0 0 7 0;
+#X connect 0 1 8 0;
+#X connect 0 2 9 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
 #X connect 3 0 0 1;
+#X connect 5 0 0 2;
 #X connect 6 0 0 2;
-#X connect 7 0 0 2;
-#X connect 9 0 18 0;
-#X connect 12 0 18 1;
+#X connect 7 0 15 0;
+#X connect 9 0 15 1;
+#X connect 10 0 0 0;
+#X connect 12 0 0 0;
 #X connect 13 0 0 0;
-#X connect 15 0 0 0;
-#X connect 16 0 0 0;
-#X connect 17 0 0 0;
-#X connect 19 0 20 0;
+#X connect 14 0 0 0;
+#X connect 16 0 17 0;
+#X connect 23 0 0 2;
+#X connect 24 0 0 2;
+#X connect 25 0 0 2;

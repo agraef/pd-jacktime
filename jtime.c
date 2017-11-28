@@ -124,8 +124,35 @@ static int l_jtime(lua_State *L)
   return 4;
 }
 
+/* transport control: start, stop and seek to a given position */
+
+static int l_jtime_start(lua_State *L)
+{
+  if (jtime_init()) return 0;
+  jack_transport_start(client);
+  return 0;
+}
+
+static int l_jtime_stop(lua_State *L)
+{
+  if (jtime_init()) return 0;
+  jack_transport_stop(client);
+  return 0;
+}
+
+static int l_jtime_locate(lua_State *L)
+{
+  lua_Number pos = luaL_checknumber(L, 1);
+  if (jtime_init()) return 0;
+  jack_transport_locate(client, pos);
+  return 0;
+}
+
 static const struct luaL_Reg jtime [] = {
   {"jtime", l_jtime},
+  {"jtime_start", l_jtime_start},
+  {"jtime_stop", l_jtime_stop},
+  {"jtime_locate", l_jtime_locate},
   {NULL, NULL}  /* sentinel */
 };
 

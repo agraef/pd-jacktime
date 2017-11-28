@@ -10,14 +10,18 @@ local JT = pd.Class:new():register("jacktime")
 -- Please check http://jackaudio.org/files/docs/html/transport-design.html for
 -- details.
 
--- Once the object is kicked off with a bang, a start message, or a nonzero
--- number, the information is queried at regular intervals. The object outputs
--- the current status only when it changes. A stop message or zero stops
--- reporting.
+-- Once the object is kicked off with a bang or a nonzero number, the
+-- information is queried at regular intervals. The object outputs the current
+-- status only when it changes. A zero on the inlet stops reporting.
 
 -- The update period in msecs can be given as the optional creation
 -- argument. If not given then a hard-coded default of 10 msec is used, but
 -- you can change this by setting the value of the self.period member below.
+
+-- Finally, transport can be started and stopped with the messages 'start' and
+-- 'stop', and you can seek to a position using a message of the form 'locate
+-- pos' where pos is specified in frames (samples). These messages also work
+-- if transport information reporting is off.
 
 function JT:initialize(name, atoms)
     self.inlets = 1
@@ -42,19 +46,11 @@ function JT:in_1_bang()
    self:tick()
 end
 
-function JT:in_1_start()
-   self:tick()
-end 
-
-function JT:in_1_stop()
-   self.clock:unset()
-end    
-
 function JT:in_1_float(f)
    if f ~= 0 then
-      self:in_1_start()
+      self:tick()
    else
-      self:in_1_stop()
+      self.clock:unset()
    end
 end
 
@@ -91,4 +87,20 @@ function JT:tick()
       self.last.fr = fr
    end
    self.clock:delay(self.period)
+end
+
+function JT:in_1_start()
+   jtime.jtime_start()
+end
+
+function JT:in_1_stop()
+   jtime.jtime_stop()
+end
+
+function JT:in_1_locate(atoms)
+   if #atoms ~= 1 or type(atoms[1]) ~= "number" then
+      self:error("jacktime: locate must have one number as argument")
+   else
+      jtime.jtime_locate(atoms[1])
+   end
 end
