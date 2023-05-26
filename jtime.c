@@ -36,6 +36,12 @@ static int jtime_init(void)
     fprintf(stderr, "jack server not running?\n");
     return -1;
   } else {
+    // Pipewire currently needs the client to be activated
+    // (cf. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3189).
+    // Apparently, this has been fixed in git already and thus this can be
+    // removed again (along with the jack_deactivate call below) once the
+    // fixed version has been rolled out to all major distros. -ag
+    jack_activate(client);
     jack_on_shutdown(client, jtime_shutdown, 0);
     return 0;
   }
@@ -43,6 +49,7 @@ static int jtime_init(void)
 
 static void jtime_fini(void)
 {
+  jack_deactivate(client);
   jack_client_close(client);
   client = NULL;
 }
