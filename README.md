@@ -10,11 +10,17 @@ Jack transport master like Ardour.
 
 ## Requirements and Installation
 
-The external is written in Lua, so pd-lua is required. Lua 5.3 has been
-tested, earlier Lua versions might require some fiddling with the Lua source
-in jacktime.pd_lua and/or the C part of the module in jtime.c. Lua can be
-found in many Linux distributions and on MacPorts. A version of pd-lua
-compatible with Lua 5.3 is available from <https://github.com/agraef/pd-lua>.
+The external is written in Lua, so pd-lua is required. Lua 5.3 and 5.4 have
+been tested, earlier Lua versions might require some fiddling with the Lua
+source in jacktime.pd_lua and/or the C part of the module in jtime.c. Lua can
+be found in many Linux distributions and on MacPorts/Homebrew. A version of
+pd-lua compatible with Lua 5.3+ is available from
+<https://github.com/agraef/pd-lua>.
+
+Note that you'll have to build against the same Lua version that pd-lua itself
+was built with. Also note that on Debian- and Ubuntu-based systems you'll need
+to have the Lua development files installed (e.g., liblua5.4-dev on newer
+Debian/Ubuntu systems).
 
 Run `make` to compile the Lua module jtime.c and then `make install` to
 install the external under /usr/lib/pd-externals. Finally, put the
